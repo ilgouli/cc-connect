@@ -75,15 +75,6 @@ xattr -d com.apple.quarantine cc-connect
 Requires Go 1.22+.
 
 ```bash
-git clone https://github.com/chenhg5/cc-connect.git
-cd cc-connect
-make build
-# Binary will be at ./cc-connect
-```
-
-Or build from fork (with edit details enhancement - shows `old_string`/`new_string` for Edit operations):
-
-```bash
 git clone https://github.com/ilgouli/cc-connect.git
 cd cc-connect
 GOPROXY=https://goproxy.cn,direct go build -o cc-connect ./cmd/cc-connect
