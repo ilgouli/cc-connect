@@ -719,7 +719,25 @@ func summarizeInput(tool string, input any) string {
 	}
 
 	switch tool {
-	case "Read", "Edit", "Write":
+	case "Read":
+		if fp, ok := m["file_path"].(string); ok {
+			return fp
+		}
+	case "Edit":
+		var parts []string
+		if fp, ok := m["file_path"].(string); ok {
+			parts = append(parts, fp)
+		}
+		if old, ok := m["old_string"].(string); ok {
+			parts = append(parts, "old: "+truncateString(old, 200))
+		}
+		if newStr, ok := m["new_string"].(string); ok {
+			parts = append(parts, "new: "+truncateString(newStr, 200))
+		}
+		if len(parts) > 0 {
+			return strings.Join(parts, "\n")
+		}
+	case "Write":
 		if fp, ok := m["file_path"].(string); ok {
 			return fp
 		}
@@ -841,4 +859,15 @@ func findProjectDir(homeDir, absWorkDir string) string {
 	}
 
 	return ""
+}
+
+// truncateString truncates s to maxLen runes, appending "..." if truncated.
+func truncateString(s string, maxLen int) string {
+	if maxLen <= 0 {
+		return s
+	}
+	if utf8.RuneCountInString(s) <= maxLen {
+		return s
+	}
+	return string([]rune(s)[:maxLen]) + "..."
 }
