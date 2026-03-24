@@ -81,6 +81,20 @@ make build
 # Binary will be at ./cc-connect
 ```
 
+Or build from fork (with edit details enhancement - shows `old_string`/`new_string` for Edit operations):
+
+```bash
+git clone https://github.com/ilgouli/cc-connect.git
+cd cc-connect
+GOPROXY=https://goproxy.cn,direct go build -o cc-connect ./cmd/cc-connect
+```
+
+Or install directly via `go install`:
+
+```bash
+GOPROXY=https://goproxy.cn,direct go install github.com/ilgouli/cc-connect/cmd/cc-connect@latest
+```
+
 ## Step 2: Install your AI Agent
 
 cc-connect supports multiple local coding agents. Install at least one:
